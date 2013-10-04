@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<style>
+body {
+	background: #47a3da;
+	color: #fff;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	zoom: 1;
+}
+.main {
+	overflow: hidden;
+	zoom: 1;
+}
+</style>
+<script src="js/jquery-1.10.2.js"></script>
+</head>
+<body>
+<div class="main">
+	<p>iframe content</p>
+	<p>iframe content</p>
+	<p>iframe content</p>
+	<p>iframe content</p>
+</div>
+<script src="js/jquery-1.10.2.js"></script>
+<script>
+$(window).bind('resize', function() {
+	var height = document.body.scrollHeight;
+	if (height > $('.main').height()) {
+		height = $('.main').height();
+	}
+	window.name = height;
+	console.log(document.body.scrollHeight, $(window).height());
+});
+</script>
+</body>
+</html>

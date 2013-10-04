@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<style>
+.responsive-iframe {
+    border: 0;
+}
+</style>
+</head>
+<body>
+<h1>Responsive iFrame</h1>
+<a href="iframe.html" class="js-responsive-iframe">iFrame</a>
+<h2>The problem</h2>
+<p>We want to deploy statically created content into a dynamically generated, responsive webpage (News story page).  The statically created content is deployed and then becomes an archived, journalistic record which needs to persist on the BBC News site forever.  The story page though is generated at run time, using content from an API and a templating system.</p>
+<p>This templating system is updated bi-weekly, HTML and CSS changes happen with each new release.  When the static content is made it is tested against the latest version of the templates then released.  But after that the templates will change and produce rendering errors with the statically generated content.</p>
+<h2>Possible solution: iframe</h2>
+<p>To stop rendering issues with the statically created content, we need to completely isolate the content from the rest of the page.  We've tried doing this with CSS resets, but this has proved impossible.  The only way to truely decouple HTML from the rest of the page is via an iFrame.  This would be okay, however the page layout is responsive, so the iFrame needs to scale with the rest of the interface.</p>
+<p>The experiment above uses JavaScript in the host page, to reset the width and height of the iframe when the page resizes.  Inside the iframe, JavaScript is used to store the correct height needed to show all the iFrame content.  It stores the value in the name property of the window object, which is esaily referenceable from the host page.  iFrame content is in blue.</p>
+<script src="js/jquery-1.10.2.js"></script>
+<script>
+
+var iframeManager = {
+    init: function() {
+        var iframeManager = this;
+        $(window).bind('resize', function() {
+            iframeManager.resizeIframes();
+        });
+    },
+    members: [],
+    resizeIframes: function() {
+        var iframeManager = this;
+        $.each(this.members, function(index, iframe) {
+            iframeManager.setDimensions(iframe);
+            $(iframe[0]).height(iframe[0].contentWindow.name + 'px');
+            //console.log($(iframe[0]).height(), iframe[0].contentWindow.name);
+        });
+    },
+    add: function(iframe) {
+        this.members.push(iframe);
+        this.setDimensions(iframe);
+    },
+    setDimensions: function(iframe) {
+        iframe.width(iframe.parent().width());
+    }
+};
+
+iframeManager.init();
+
+$('.js-responsive-iframe').each(function() {
+    var iframe = $('<iframe class="responsive-iframe" src="' + this.href + '" allowfullscreen></iframe>');
+    $(this).after(iframe);
+    $(this).remove();
+    iframeManager.add(iframe);
+});
+
+</script>
+</body>
+</html>
