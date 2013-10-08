@@ -1,6 +1,8 @@
 responsive-iframe
 =================
 
+[demo](http://maslen.github.io/responsive-iframe/host.html)
+
 This project uses grunt, it has a npm dependency.  Install npm first then run:
 
 ```
