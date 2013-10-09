@@ -21,6 +21,7 @@ body {
 </head>
 <body>
 <div class="main">
+	<button>More content</button>
 	<p>iframe content</p>
 	<p>iframe content</p>
 	<p>iframe content</p>
@@ -28,13 +29,34 @@ body {
 </div>
 <script src="js/jquery-1.10.2.js"></script>
 <script>
-$(window).bind('resize', function() {
-	var height = document.body.scrollHeight;
-	if (height > $('.main').height()) {
-		height = $('.main').height();
+var externalHostCommunicator = {
+	init: function() {
+		this.setHeightValue();
+		this.startWatching();
+	},
+	startWatching: function() {
+		var externalHostCommunicator = this;
+		$(window).bind('resize', externalHostCommunicator.setHeightValue);
+		window.setInterval(function() {
+		    externalHostCommunicator.setHeightValue();
+		}, 3000);
+	},
+	setHeightValue: function() {
+		var height = document.body.scrollHeight;
+		if (height > $('.main').height()) {
+			height = $('.main').height();
+		}
+		window.name = height;
+		//console.log(document.body.scrollHeight, $(window).height());
 	}
-	window.name = height;
-	console.log(document.body.scrollHeight, $(window).height());
+}
+
+externalHostCommunicator.init();
+
+
+$('button').bind('click', function() {
+	$('.main').append('<p>iframe content</p>');
+	externalHostCommunicator.setHeightValue();
 });
 </script>
 </body>
