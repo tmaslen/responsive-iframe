@@ -66,7 +66,7 @@ var iframeManager = {
         this.setDimensions(iframe);
     },
     setDimensions: function(iframe) {
-        window.alert(iframe.parent().width());
+        //window.alert(iframe.parent().width());
         iframe.width(iframe.parent().width());
         iframe.height(iframe[0].contentWindow.name + 'px');
     }
