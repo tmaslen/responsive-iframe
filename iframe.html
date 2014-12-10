@@ -16,47 +16,29 @@ body {
 	overflow: hidden;
 	zoom: 1;
 }
+button {
+	display: block;
+	margin: 0 auto;
+	max-width: 100%;
+	width: 200px;
+}
 </style>
 <script src="js/jquery-1.10.2.js"></script>
 </head>
 <body>
 <div class="main">
-	<button>More content</button>
-	<p>iframe content</p>
-	<p>iframe content</p>
-	<p>iframe content</p>
-	<p>iframe content</p>
+	<button>Add more content to the iFrame</button>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non diam efficitur, elementum elit id, finibus turpis. Phasellus et porta nisl. Suspendisse venenatis purus pharetra, facilisis lectus sed, finibus tellus. Nunc bibendum suscipit venenatis.</p>
+	<p>Aliquam rutrum magna vel metus accumsan faucibus. Etiam dui purus, condimentum non dolor et, auctor rutrum purus. Nulla facilisi. Cras ut est purus. Curabitur nec accumsan turpis, eu suscipit velit. Proin a ullamcorper massa. In fringilla lacus quam, ac mattis urna ornare ut.</p>
+	<p>Phasellus tristique, arcu sed eleifend dapibus, lacus leo malesuada turpis, in sollicitudin massa diam lobortis est. Etiam sit amet risus sollicitudin, commodo eros ac, malesuada nulla. Nulla tincidunt nibh eu rutrum consectetur. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 </div>
 <script src="js/jquery-1.10.2.js"></script>
+<script src="js/responsive-iframe-frame.js"></script>
 <script>
-var externalHostCommunicator = {
-	init: function() {
-		this.setHeightValue();
-		this.startWatching();
-	},
-	startWatching: function() {
-		var externalHostCommunicator = this;
-		$(window).bind('resize', externalHostCommunicator.setHeightValue);
-		window.setInterval(function() {
-		    externalHostCommunicator.setHeightValue();
-		}, 3000);
-	},
-	setHeightValue: function() {
-		var height = document.body.scrollHeight;
-		if (height > $('.main').height()) {
-			height = $('.main').height();
-		}
-		window.name = height;
-		//console.log(document.body.scrollHeight, $(window).height());
-	}
-}
-
-externalHostCommunicator.init();
-
+hostCommunicator.init();
 
 $('button').bind('click', function() {
-	$('.main').append('<p>iframe content</p>');
-	externalHostCommunicator.setHeightValue();
+	$('.main').append('<p>Aliquam rutrum magna vel metus accumsan faucibus. Etiam dui purus, condimentum non dolor et, auctor rutrum purus. Nulla facilisi. Cras ut est purus. Curabitur nec accumsan turpis, eu suscipit velit. Proin a ullamcorper massa. In fringilla lacus quam, ac mattis urna ornare ut.</p>');
 });
 </script>
 </body>

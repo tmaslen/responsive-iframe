@@ -9,7 +9,18 @@
 }
 .main {
     background: gainsboro;
-    width: 25%;
+    margin: 0 auto;
+    width: 976px;
+}
+@media (max-width: 976px) {
+    .main {
+        width: 480px;
+    }
+}
+@media (max-width: 490px) {
+    .main {
+        width: 100%;
+    }
 }
 </style>
 </head>
@@ -17,7 +28,9 @@
 
 <div class="main">
     <h1>Responsive iFrame</h1>
-    <a href="iframe.html" class="js-responsive-iframe">iFrame</a>
+    <div>
+        <a href="iframe.html" id="responsive-iframe-1" class="js-responsive-iframe">iFrame</a>
+    </div>
     <h2>The problem</h2>
     <p>We want to deploy statically created content into a dynamically generated, responsive webpage (News story page).  The statically created content is deployed and then becomes an archived, journalistic record which needs to persist on the BBC News site forever.  The story page though is generated at run time, using content from an API and a templating system.</p>
     <p>This templating system is updated bi-weekly, HTML and CSS changes happen with each new release.  When the static content is made it is tested against the latest version of the templates then released.  But after that the templates will change and produce rendering errors with the statically generated content.</p>
@@ -27,51 +40,12 @@
 </div>
 
 <script src="js/jquery-1.10.2.js"></script>
+<script src="js/responsive-iframe-host.js"></script>
 <script>
 
-var iframeManager = {
-    members: [],
-    init: function() {
-
-        this.renderIframes();
-
-        this.startWatching();
-    },
-    renderIframes: function() {
-        var iframeManager = this;
-        $('.js-responsive-iframe').each(function() {
-            var iframe = $('<iframe class="responsive-iframe" src="' + this.href + '" allowfullscreen></iframe>');
-            $(this).after(iframe);
-            $(this).remove();
-            iframeManager.add(iframe);
-        });
-    },
-    startWatching: function() {
-        var iframeManager = this;
-        $(window).bind('resize', function() {
-            iframeManager.resizeIframes();
-        });
-        window.setInterval(function() {
-            iframeManager.resizeIframes();
-        }, 3000);
-    },
-    resizeIframes: function() {
-        var iframeManager = this;
-        $.each(this.members, function(index, iframe) {
-            iframeManager.setDimensions(iframe);
-        });
-    },
-    add: function(iframe) {
-        this.members.push(iframe);
-        this.setDimensions(iframe);
-    },
-    setDimensions: function(iframe) {
-        iframe.width(iframe.parent().width());
-        iframe.height(iframe[0].contentWindow.name + 'px');
-    }
-};
-
-iframeManager.init();
+if (cutsTheMustard()) {
+    var iframe = new IframeWatcher('responsive-iframe-1');
+}
 
 </script>
 </body>
