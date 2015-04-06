@@ -1,5 +1,5 @@
 responsive-iframe
 =================
 
-[demo](http://maslen.github.io/responsive-iframe/host.html)
+[demo](http://tmaslen.github.io/responsive-iframe/host.html)
 
