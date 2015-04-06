@@ -10,7 +10,7 @@ var hostCommunicator = {
     },
     height: 0,
     setupPostMessage: function () {
-        window.setInterval(this.sendDataByPostMessage, 32);
+        window.setInterval(hostCommunicator.sendDataByPostMessage, 32);
     },
     sendDataByPostMessage: function (istatsData) {
         var talker_uid = window.location.pathname,
@@ -21,7 +21,7 @@ var hostCommunicator = {
         window.parent.postMessage(talker_uid + '::' + JSON.stringify(message), '*');
     },
     startWatching: function () {
-        window.setInterval(this.setHeight, 32);
+        window.setInterval(hostCommunicator.setHeight, 32);
     },
     staticHeight: null,
     setStaticHeight: function (newStaticHeight) {
